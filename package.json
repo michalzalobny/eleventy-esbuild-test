@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run watch:scss & npm run watch:ts & eleventy --serve",
-    "build": "npm run eleventy && npm run ts && npm run scss",
+    "build": "npm run scss && npm run ts && eleventy",
     "scss": "node scss.js",
     "watch:scss": "nodemon -e scss -x \"npm run scss\"",
     "ts": "tsc",
