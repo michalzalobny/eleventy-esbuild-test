@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta httpequiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="theme-color" content="#000000"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preload" as="font" type="font/woff" href='/public/fonts/opensans800.woff' crossorigin="anonymous"/>
+        <link rel="preload" as="font" type="font/woff" href='/public/fonts/opensans400.woff' crossorigin="anonymous"/>
+        <link rel="stylesheet" href="/css/index.css">
+        <title>{{title}}</title>
+    </head>
+    <body>
+        <header>
+            <h1>{{title}}</h1>
+        </header>
+        <main>
+            {{content | safe}}
+        </main>
+    </body>
+</html>
