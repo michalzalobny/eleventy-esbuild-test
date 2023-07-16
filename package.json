@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run watch:scss & npm run watch:ts & eleventy --serve",
-    "build": "npm run scss && npm run ts && eleventy",
+    "build": "npm run build:pre-eleventy && eleventy",
+    "build:pre-eleventy": "npm run scss && npm run esbuild-compile-app",
     "scss": "node scss.js",
-    "watch:scss": "nodemon -e scss -x \"npm run scss\"",
-    "ts": "tsc",
-    "watch:ts": "nodemon -e ts -x \"npm run ts\""
+    "watch:scss": "nodemon -e scss -x npm run scss",
+    "esbuild-compile-app": "node esbuild-compile-app",
+    "watch:esbuild-compile-app": "chokidar './src/app/**/*' -c 'npm run esbuild-compile-app'",
+    "dev": "npm run build:pre-eleventy && concurrently 'npm run watch:scss' 'npm run watch:esbuild-compile-app' 'eleventy --serve'"
   },
   "repository": {
     "type": "git",
@@ -22,15 +23,24 @@
     "url": "https://github.com/michalzalobny/eleventy-esbuild-test/issues"
   },
   "homepage": "https://github.com/michalzalobny/eleventy-esbuild-test#readme",
+  "dependencies": {
+    "@prismicio/client": "7.1.0",
+    "isomorphic-fetch": "3.0.0",
+    "fs-extra": "11.1.1",
+    "@11ty/eleventy": "2.0.1",
+    "@types/node": "20.4.2",
+    "nodemon": "3.0.1",
+    "chokidar-cli": "3.0.0",
+    "concurrently": "8.2.0",
+    "node-sass": "9.0.0",
+    "postcss": "8.4.26",
+    "autoprefixer": "10.4.14",
+    "clean-css": "5.3.2",
+    "esbuild": "0.18.13",
+    "html-minifier": "4.0.0",
+    "dotenv": "16.3.1"
+  },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
-    "autoprefixer": "^10.4.14",
-    "clean-css": "^5.3.2",
-    "esbuild": "^0.18.12",
-    "html-minifier": "^4.0.0",
-    "node-sass": "^9.0.0",
-    "nodemon": "^3.0.1",
-    "postcss": "^8.4.26",
-    "typescript": "^5.1.6"
+    "typescript": "5.1.6"
   }
 }

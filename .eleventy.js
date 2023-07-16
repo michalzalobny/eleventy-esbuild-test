@@ -1,7 +1,7 @@
 const htmlmin = require("html-minifier").minify;
 
 module.exports = function (eleventyConfig) {
-  eleventyConfig.addPassthroughCopy("src/public");
+  eleventyConfig.addPassthroughCopy("src/eleventy/public");
 
   //Minify HTML
   eleventyConfig.addTransform("htmlmin", function (content, outputPath) {
@@ -18,7 +18,7 @@ module.exports = function (eleventyConfig) {
 
   return {
     dir: {
-      input: "src",
+      input: "src/eleventy",
       output: "dist",
     },
   };
