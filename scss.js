@@ -2,11 +2,14 @@ const sass = require("node-sass");
 const postcss = require("postcss");
 const autoprefixer = require("autoprefixer");
 const CleanCSS = require("clean-css");
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
 
 const srcDir = path.join(__dirname, "src", "styles");
 const outDir = path.join(__dirname, "dist", "css");
+
+// Empty the output directory
+fs.emptyDirSync(outDir);
 
 fs.readdir(srcDir, (err, files) => {
   if (err) throw err;
@@ -23,10 +26,6 @@ fs.readdir(srcDir, (err, files) => {
           .process(result.css, { from: srcFile, to: outFile })
           .then((result) => {
             const output = new CleanCSS({}).minify(result.css);
-
-            // Create the output directory if it does not exist
-            fs.mkdirSync(path.dirname(outFile), { recursive: true });
-
             fs.writeFile(outFile, output.styles, (err) => {
               if (err) throw err;
             });
