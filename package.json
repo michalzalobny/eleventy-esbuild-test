@@ -7,10 +7,10 @@
     "build": "npm run build:pre-eleventy && eleventy",
     "build:pre-eleventy": "npm run scss && npm run esbuild-compile-app",
     "scss": "node scss.js",
-    "watch:scss": "nodemon -e scss -x npm run scss",
+    "watch:scss": "nodemon -e scss -x \"npm run scss\"",
     "esbuild-compile-app": "node esbuild-compile-app",
-    "watch:esbuild-compile-app": "chokidar './src/app/**/*' -c 'npm run esbuild-compile-app'",
-    "dev": "npm run build:pre-eleventy && concurrently 'npm run watch:scss' 'npm run watch:esbuild-compile-app' 'eleventy --serve'"
+    "watch:esbuild-compile-app": "chokidar \"./src/app/**/*\" -c \"npm run esbuild-compile-app\"",
+    "dev": "npm run build:pre-eleventy && concurrently \"npm run watch:scss\" \"npm run watch:esbuild-compile-app\" \"eleventy --serve\""
   },
   "repository": {
     "type": "git",
