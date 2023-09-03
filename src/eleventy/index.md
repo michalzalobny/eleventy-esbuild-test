@@ -3,10 +3,10 @@ title: Hello World
 layout: "layouts/base.njk"
 ---
 
-<h2>Main page</h2>
-
+<div class="c-large">
 <ul>
-  {% for study in caseStudies %}
-    <li><a href="/case-studies/{{ study.url }}">{{ study.title }}</a></li>
-  {% endfor %}
+{% for study in caseStudies %}
+{% include "components/caseStudy.njk" %}
+{% endfor %}
 </ul>
+</div>

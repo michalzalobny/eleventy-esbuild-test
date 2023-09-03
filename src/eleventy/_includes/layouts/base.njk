@@ -11,12 +11,25 @@
         <title>{{title}}</title>
     </head>
     <body>
-        <header>
-            <h1>{{title}}</h1>
-        </header>
+        <!-- Script to include all image urls to preload -->
+        <script id="imagesToPreload" type="application/json">
+            {{ collections.imagesToPreload | dump | safe }}
+        </script>
         <main>
             {{content | safe}}
         </main>
     </body>
     <script src="/js/main.js"></script>
 </html>
+
+{# const dataElement = document.getElementById("imagesToPreload");
+if (!dataElement) {
+    console.log("dataElement is missing for imagesToPreload");
+    return;
+}
+const text = dataElement.textContent;
+if (!text) {
+    console.log("textContent is empty for imagesToPreload");
+    return;
+}
+const imageUrls = JSON.parse(text); #}
