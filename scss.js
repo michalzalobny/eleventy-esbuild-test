@@ -8,6 +8,8 @@ const path = require("path");
 const srcDir = path.join(__dirname, "src", "styles");
 const outDir = path.join(__dirname, "dist", "css");
 
+const isProduction = process.env.NODE_ENV === "production";
+
 // Empty the output directory
 fs.emptyDirSync(outDir);
 
@@ -19,18 +21,29 @@ fs.readdir(srcDir, (err, files) => {
       const srcFile = path.join(srcDir, file);
       const outFile = path.join(outDir, file.replace(".scss", ".css"));
 
-      sass.render({ file: srcFile }, (err, result) => {
-        if (err) throw err;
+      sass.render(
+        {
+          file: srcFile,
+          outputStyle: isProduction ? "compressed" : "expanded",
+        },
+        (err, result) => {
+          if (err) throw err;
 
-        postcss([autoprefixer])
-          .process(result.css, { from: srcFile, to: outFile })
-          .then((result) => {
-            const output = new CleanCSS({}).minify(result.css);
-            fs.writeFile(outFile, output.styles, (err) => {
-              if (err) throw err;
+          postcss([autoprefixer])
+            .process(result.css, { from: srcFile, to: outFile })
+            .then((result) => {
+              let outputCss = result.css;
+
+              if (isProduction) {
+                outputCss = new CleanCSS({}).minify(result.css).styles;
+              }
+
+              fs.writeFile(outFile, outputCss, (err) => {
+                if (err) throw err;
+              });
             });
-          });
-      });
+        }
+      );
     }
   });
 });
